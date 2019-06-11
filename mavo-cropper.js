@@ -2,16 +2,18 @@
 	const SELECTOR = '.cropper, [mv-cropper-options]';
 
 	let defaults = {
-		viewMode: 3
+		viewMode: 3,
+		autoCropArea: 1
 	};
 
 	let options;
 
 	Mavo.Plugins.register('cropper', {
 		dependencies: [
-			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.css'
+			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.css',
+			'mv-cropper.css'
 		],
-		ready: $.include(self.cropper, 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.js')
+		ready: $.include(self.cropper, 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.js'),
 	});
 
 	Mavo.Elements.register('cropper', {
@@ -19,12 +21,6 @@
 		selector: SELECTOR,
 		attribute: 'src',
 		hasChildren: false,
-
-		// extend: {
-		// 	'media': {
-		// 		selector: SELECTOR
-		// 	},
-		// },
 
 		init: function () {
 
@@ -38,109 +34,69 @@
 
 		},
 
-		edit: function () {
+		editor: function () {
+			let fileName;
+			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
+			// Generate the default editor
+			const popup = this.createUploadPopup('image/*', 'image', 'png');
+			// Do I have to unbind to change the event handler, or there is another way?
+			// What about other events?
+			$.unbind($('input[type=file]', popup), 'change');
+			$('input[type=file]', popup).addEventListener('change', evt => {
+				const file = evt.target.files[0];
 
-			$.create('section', {
-				style: {
-					width: this.element.offsetWidth + 'px',
-					height: '20px',
-				},
-				className: 'cropper-bar',
-				contents: [{
-						tag: 'button',
-						type: 'button',
-						textContent: 'Flip',
-						events: {
-							click: function () {
-								this.cropper.scaleX(-1);
-							}.bind(this)
-						}
-					},
-					{
-						tag: 'button',
-						type: 'button',
-						textContent: 'Save',
-						events: {
-							click: function () {
-								this.element.src = this.cropper.getCroppedCanvas().toDataURL();
-								// this.element.setAttribute('content', this.cropper.getCroppedCanvas().toDataURL());
-								// this.element.style.content = this.cropper.getCroppedCanvas().toDataURL();
-								// this.cropper.getCroppedCanvas().toBlob(blob => {
-								// 	this.mavo.upload(blob);
-								// });
-								// this.cropper.getCroppedCanvas().toBlob(blob => {
-								// 	this.upload(blob, 'image');
-								// });
-							}.bind(this)
-						}
-					},
-					{
-						tag: 'button',
-						type: 'button',
-						textContent: 'Edit',
-						events: {
-							click: function () {
-								// Wrapper
-								$.create('div', {
-									style: {
-										width: this.element.offsetWidth + 'px',
-										height: this.element.offsetHeight + 'px'
-									},
-									around: this.element
-								});
-
-								// Preview
-								$.create('div', {
-									style: {
-										width: this.element.offsetWidth / 2 + 'px',
-										height: this.element.offsetHeight / 2 + 'px',
-										overflow: 'hidden',
-									},
-									className: 'cropper-preview',
-									after: this.element
-								});
-
-								// this.cropper = new Cropper(this.element, options);
-								this.cropper = new Cropper(this.element, $.extend(options, { preview: $('.cropper-preview') }));
-							}.bind(this)
-						}
+				if (file) {
+					fileName = file.name;
+					const tempURL = URL.createObjectURL(file);
+					this.element.setAttribute(this.attribute, tempURL);
+					if (this.cropper) {
+						this.cropper.replace(tempURL);
 					}
-				],
-				before: this.element
+				}
 			});
-
-
-
-			// this.element.style.maxWidth = '100%';
-
-			// this.cropper = new Cropper(this.element, options);
-			// Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
-			// return this.createUploadPopup('image/*', 'image', 'png');
+			// and extend it with appropriate elements
+			$.create('div', {
+				// Wrap the image element with a block element (container)
+				className: 'cropper-wrapper',
+				style: {
+					maxWidth: this.element.offsetWidth + 'px'
+				},
+				contents: [{
+					tag: 'img',
+					src: this.element.src,
+					className: 'cropper-preview',
+					// Limit image width to avoid overflow the container
+					style: {
+						maxWidth: '100%'
+					}
+				}],
+				inside: popup
+			});
+			// TODO: Generate the cropper-bar depending on the Cropper options: this.cropper.options
+			$.create('div', {
+				className: 'cropper-bar',
+				contents: {
+					tag: 'button',
+					type: 'button',
+					textContent: 'Done',
+					events: {
+						click: function () {
+							this.cropper.getCroppedCanvas().toBlob(file => {
+								this.upload(file, fileName);
+							});
+						}.bind(this)
+					}
+				},
+				inside: popup
+			});
+			this.cropper = new Cropper($('.cropper-preview', popup), options);
+			return popup;
 		},
 
-		// editor: function () {
-		// 	// env.editor = this.createUploadPopup('image/*', 'image', 'png');
-		// 	Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
-		// 	// this.element.setAttribute('mv-uploads', 'images');
-		// 	return this.createUploadPopup('image/*', 'image', 'png');
-
-		// 	// env.editor = $.create("textarea");
-		// 	// env.editor.style.whiteSpace = "pre-wrap";
-
-		// 	// return env.editor;
-		// },
-
-		done: function () {
-			if (this.cropper) {
-				this.cropper.destroy();
-
-				// Remove the wrapper
-				$.before(this.element, this.element.parentElement);
-				$.remove(this.element.nextElementSibling);
-			}
-
-			// Remove the section with buttons
-			$('.cropper-bar').remove();
-		}
+		// done: function () {
+		// 	if (this.cropper) {
+		// 		this.cropper.destroy();
+		// 	}
+		// }
 	});
 })(Bliss, Bliss.$);
