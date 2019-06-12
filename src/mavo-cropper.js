@@ -1,10 +1,9 @@
-(function ($, $$) {
+(function ($) {
 	const SELECTOR = '.cropper, [mv-cropper-options]';
 
 	let defaults = {
-		viewMode: 3,
-		autoCropArea: 1,
-		checkCrossOrigin: false
+		viewMode: 2,
+		autoCrop: false
 	};
 
 	let options;
@@ -38,34 +37,30 @@
 			let fileName = this.data.split('/').pop();
 			let fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
-			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
-			// Generate the default editor
-			const popup = this.createUploadPopup('image/*', 'image', 'png');
-
-			// console.log(this);
-
+			// Listen to every change of the source image
+			// and update the preview accordingly
+			// That's a bit slow? Could we fix that?
 			this.element.addEventListener('mv-change', evt => {
 				fileName = this.data.split('/').pop();
 				fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 				this.cropper.replace(evt.value);
 			});
 
+			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
+			// Generate the default editor
+			const popup = this.createUploadPopup('image/*', 'image', 'png');
+
 			// and extend it with appropriate elements
 			$.create('div', {
 				// Wrap the image element with a block element (container)
 				className: 'cropper-wrapper',
-				// Do we really need to style it here?
-				style: {
-					width: this.element.offsetWidth + 'px'
-				},
 				contents: [{
 					tag: 'img',
 					src: this.data,
 					alt: this.mavo._('cropper-image-preview'),
 					className: 'cropper-preview',
-					// Limit image width to avoid overflow the container
 					style: {
-						maxWidth: '100%'
+						maxWidth: this.element.offsetWidth + 'px'
 					}
 				}],
 				inside: popup
@@ -79,8 +74,8 @@
 				className: 'cropper-bar',
 				contents: {
 					tag: 'button',
-					className: 'cropper-upload',
 					type: 'button',
+					className: 'cropper-upload',
 					title: this.mavo._('cropper-upload'),
 					events: {
 						click: () => {
@@ -152,15 +147,7 @@
 
 			// Show an end user the editor
 			return popup;
-		},
-
-		// done: function () {
-		// 	// this.cropper.destroy();
-		// 	if (tempURL) {
-		// 		URL.revokeObjectURL(tempURL);
-		// 	}
-		// }
-
+		}
 	});
 
 	Mavo.Locale.register('en', {
@@ -172,4 +159,4 @@
 		'cropper-flip-vertical': 'Flip Vertical'
 	});
 
-})(Bliss, Bliss.$);
+})(Bliss);

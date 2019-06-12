@@ -6,10 +6,14 @@
   --flip-vertical-btn: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="hsl(210, 94%, 59%)"><path d="M1 1l5 6 4.94-6H1zM5.94 10L1 16h10zm-2.82 5l2.83-3.44 3 3.44H3.12zM10 8h1v1h-1V8zM12 8h1v1h-1V8zM8 8h1v1H8V8zM6 8h1v1H6V8zM4 8h1v1H4V8zM2 8h1v1H2V8zM0 8h1v1H0V8z"/><path d="M15 8.47a4.807 4.807 0 0 1-1.879 3.632L12 11v3h3l-1.18-1.18A5.757 5.757 0 0 0 16 8.478V8.47a6.062 6.062 0 0 0-2.884-4.905l-.596.805a5.095 5.095 0 0 1 2.479 4.087z"/></svg>'); }
 
 .cropper-wrapper {
-  margin-top: 1em; }
+  margin-top: 1em;
+  display: flex;
+  justify-content: center; }
 
 .cropper-preview {
-  border: 1px solid rgba(0, 0, 0, 0.1); }
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  max-height: 100%; }
 
 .cropper-bar {
   display: flex;
