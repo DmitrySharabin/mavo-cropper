@@ -35,13 +35,20 @@
 		},
 
 		editor: function () {
-			let fileName = this.element.src.split('/').pop();
+			let fileName = this.data.split('/').pop();
 			let fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
-			let tempURL;
 
 			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
 			// Generate the default editor
 			const popup = this.createUploadPopup('image/*', 'image', 'png');
+
+			// console.log(this);
+
+			this.element.addEventListener('mv-change', evt => {
+				fileName = this.data.split('/').pop();
+				fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+				this.cropper.replace(evt.value);
+			});
 
 			// and extend it with appropriate elements
 			$.create('div', {
@@ -53,7 +60,7 @@
 				},
 				contents: [{
 					tag: 'img',
-					src: this.element.src,
+					src: this.data,
 					alt: this.mavo._('cropper-image-preview'),
 					className: 'cropper-preview',
 					// Limit image width and height to avoid overflow the container
@@ -78,13 +85,13 @@
 					textContent: this.mavo._('cropper-upload'),
 					title: this.mavo._('cropper-upload'),
 					events: {
-						click: function () {
+						click: () => {
 							this.cropper.getCroppedCanvas(
 								fileType === 'image/png' ? {} : { fillColor: '#fff' }
 							).toBlob(file => {
 								this.upload(file, fileName);
 							}, fileType);
-						}.bind(this)
+						}
 					}
 				},
 				inside: popup
@@ -146,46 +153,19 @@
 				});
 			}
 
-			// Modify the behaviour of the default editor: we don't want to upload an image
+			// TODO: Modify the behaviour of the default editor: we don't want to upload an image
 			// before it is edited
-
-			// Do I have to unbind to change the event handler, or there is another way?
-			// What about other events: copy-paste, drag & drop?
-			$('input[type=file]', popup).addEventListener('change', evt => {
-				const file = evt.target.files[0];
-				fileName = file.name;
-				fileType = file.type;
-				tempURL = URL.createObjectURL(file);
-
-				if (this.cropper) {
-					this.cropper.replace(tempURL);
-				}
-			});
-			$.bind(popup, {
-				'drop': evt => {
-					const file = evt.dataTransfer.files[0];
-
-					if (file && file.type.split('/')[0] === 'image') {
-						fileName = file.name;
-						fileType = file.type;
-						tempURL = URL.createObjectURL(file);
-						if (this.cropper) {
-							this.cropper.replace(tempURL);
-						}
-					}
-				}
-			});
 
 			// Show an end user the editor
 			return popup;
 		},
 
-		done: function () {
-			// this.cropper.destroy();
-			if (tempURL) {
-				URL.revokeObjectURL(tempURL);
-			}
-		}
+		// done: function () {
+		// 	// this.cropper.destroy();
+		// 	if (tempURL) {
+		// 		URL.revokeObjectURL(tempURL);
+		// 	}
+		// }
 
 	});
 
