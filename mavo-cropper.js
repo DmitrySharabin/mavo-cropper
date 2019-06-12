@@ -3,7 +3,8 @@
 
 	let defaults = {
 		viewMode: 3,
-		autoCropArea: 1
+		autoCropArea: 1,
+		checkCrossOrigin: false
 	};
 
 	let options;
@@ -34,7 +35,9 @@
 		},
 
 		editor: function () {
-			let fileName;
+			let fileName = this.element.src.split('/').pop();
+			let fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+			let tempURL;
 
 			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
 			// Generate the default editor
@@ -44,17 +47,19 @@
 			$.create('div', {
 				// Wrap the image element with a block element (container)
 				className: 'cropper-wrapper',
-				// Do we need style it here?
+				// Do we really need to style it here?
 				style: {
 					maxWidth: this.element.offsetWidth + 'px'
 				},
 				contents: [{
 					tag: 'img',
 					src: this.element.src,
+					alt: this.mavo._('cropper-image-preview'),
 					className: 'cropper-preview',
-					// Limit image width to avoid overflow the container
+					// Limit image width and height to avoid overflow the container
 					style: {
-						maxWidth: '100%'
+						maxWidth: '100%',
+						maxHeight: '100%'
 					}
 				}],
 				inside: popup
@@ -74,9 +79,11 @@
 					title: this.mavo._('cropper-upload'),
 					events: {
 						click: function () {
-							this.cropper.getCroppedCanvas().toBlob(file => {
+							this.cropper.getCroppedCanvas(
+								fileType === 'image/png' ? {} : { fillColor: '#fff' }
+							).toBlob(file => {
 								this.upload(file, fileName);
-							});
+							}, fileType);
 						}.bind(this)
 					}
 				},
@@ -144,35 +151,28 @@
 
 			// Do I have to unbind to change the event handler, or there is another way?
 			// What about other events: copy-paste, drag & drop?
-			$.unbind($('input[type=file]', popup), 'change');
 			$('input[type=file]', popup).addEventListener('change', evt => {
 				const file = evt.target.files[0];
+				fileName = file.name;
+				fileType = file.type;
+				tempURL = URL.createObjectURL(file);
 
-				if (file) {
-					fileName = file.name;
-					const tempURL = URL.createObjectURL(file);
-					this.element.setAttribute(this.attribute, tempURL);
-					if (this.cropper) {
-						this.cropper.replace(tempURL);
-					}
+				if (this.cropper) {
+					this.cropper.replace(tempURL);
 				}
 			});
-			$.unbind(popup, 'drop');
 			$.bind(popup, {
-				'paste': evt => {},
 				'drop': evt => {
 					const file = evt.dataTransfer.files[0];
 
-					if (file) {
+					if (file && file.type.split('/')[0] === 'image') {
 						fileName = file.name;
-						const tempURL = URL.createObjectURL(file);
-						this.element.setAttribute(this.attribute, tempURL);
+						fileType = file.type;
+						tempURL = URL.createObjectURL(file);
 						if (this.cropper) {
 							this.cropper.replace(tempURL);
 						}
 					}
-					popup.classList.remove('mv-dragover');
-					evt.preventDefault();
 				}
 			});
 
@@ -182,10 +182,15 @@
 
 		done: function () {
 			// this.cropper.destroy();
+			if (tempURL) {
+				URL.revokeObjectURL(tempURL);
+			}
 		}
+
 	});
 
 	Mavo.Locale.register('en', {
+		'cropper-image-preview': 'Image preview',
 		'cropper-upload': 'Upload',
 		'cropper-rotate-left': 'Rotate Left',
 		'cropper-rotate-right': 'Rotate Right',
