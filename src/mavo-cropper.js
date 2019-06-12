@@ -56,7 +56,7 @@
 				className: 'cropper-wrapper',
 				// Do we really need to style it here?
 				style: {
-					maxWidth: this.element.offsetWidth + 'px'
+					width: this.element.offsetWidth + 'px'
 				},
 				contents: [{
 					tag: 'img',

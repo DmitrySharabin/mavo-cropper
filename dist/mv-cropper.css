@@ -8,6 +8,9 @@
 .cropper-wrapper {
   margin-top: 1em; }
 
+.cropper-preview {
+  border: 1px solid rgba(0, 0, 0, 0.1); }
+
 .cropper-bar {
   display: flex;
   margin-top: 0.5em;
