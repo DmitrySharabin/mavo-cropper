@@ -81,7 +81,6 @@
 					tag: 'button',
 					className: 'cropper-upload',
 					type: 'button',
-					textContent: this.mavo._('cropper-upload'),
 					title: this.mavo._('cropper-upload'),
 					events: {
 						click: () => {
@@ -101,7 +100,6 @@
 				$.create('button', {
 					type: 'button',
 					className: 'cropper-rotate-left',
-					textContent: this.mavo._('cropper-rotate-left'),
 					title: this.mavo._('cropper-rotate-left'),
 					events: {
 						click: () => {
@@ -113,7 +111,6 @@
 				$.create('button', {
 					type: 'button',
 					className: 'cropper-rotate-right',
-					textContent: this.mavo._('cropper-rotate-right'),
 					title: this.mavo._('cropper-rotate-right'),
 					events: {
 						click: () => {
@@ -129,7 +126,6 @@
 				$.create('button', {
 					type: 'button',
 					className: 'cropper-flip-horizontal',
-					textContent: this.mavo._('cropper-flip-horizontal'),
 					title: this.mavo._('cropper-flip-horizontal'),
 					events: {
 						click: () => {
@@ -141,7 +137,6 @@
 				$.create('button', {
 					type: 'button',
 					className: 'cropper-flip-vertical',
-					textContent: this.mavo._('cropper-flip-vertical'),
 					title: this.mavo._('cropper-flip-vertical'),
 					events: {
 						click: () => {
