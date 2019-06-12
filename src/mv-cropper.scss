@@ -32,8 +32,12 @@
             height: 1em;
         }
 
-        &:hover {
+        &:hover, &:focus {
             filter: hue-rotate(180deg);
+        }
+
+        &:focus {
+            outline: none;
         }
 
         &:only-child {
