@@ -1,0 +1,7 @@
+.cropper-wrapper {
+  margin-top: 1em; }
+  .cropper-wrapper .cropper-preview {
+    border: 1px solid red; }
+
+.cropper-bar {
+  margin-top: 0.5em; }

@@ -1,0 +1,16 @@
+{
+  "name": "mavo-cropper",
+  "version": "0.1.0",
+  "description": "Mavo Plugin",
+  "main": "index.js",
+  "repository": "https://github.com/DmitrySharabin/mavo-cropper.git",
+  "author": "Dmitry Sharabin <dmitrysharabin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "gulp": "^4.0.2",
+    "gulp-cssnano": "^2.1.3",
+    "gulp-sass": "^4.0.2",
+    "gulp-terser": "^1.2.0"
+  }
+}

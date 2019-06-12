@@ -1,5 +1,9 @@
 .cropper-wrapper {
     margin-top: 1em;
+
+    .cropper-preview {
+        border: 1px solid red;
+    }
 }
 
 .cropper-bar {
