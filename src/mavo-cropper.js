@@ -107,9 +107,11 @@
 						this.classList.toggle('cropper-crop-hide');
 						if (this.classList.contains('cropper-crop-hide')) {
 							this.setAttribute('title', self.mavo._('cropper-show'));
+							self.cropper.setDragMode();
 							self.cropper.clear();
 						} else {
 							this.setAttribute('title', self.mavo._('cropper-hide'));
+							self.cropper.setDragMode('crop');
 							self.cropper.crop();
 						}
 					}
