@@ -71,7 +71,7 @@
 			// Create the cropper
 			this.cropper = new Cropper($('.cropper-preview', popup), options);
 
-			// TODO: Generate the cropper-bar depending on the Cropper options: this.cropper.options
+			// Generate the cropper-bar depending on the cropper options: this.cropper.options
 			$.create('div', {
 				className: 'cropper-bar',
 				contents: {
@@ -172,6 +172,7 @@
 		}
 	});
 
+	// Think of localization from the very beginning :)
 	Mavo.Locale.register('en', {
 		'cropper-image-preview': 'Image preview',
 		'cropper-upload': 'Upload',
