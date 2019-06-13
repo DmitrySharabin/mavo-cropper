@@ -2,7 +2,8 @@
 	const SELECTOR = '.cropper, [mv-cropper-options]';
 
 	let defaults = {
-		viewMode: 2
+		viewMode: 2,
+		autoCrop: false
 	};
 
 	let options;
@@ -94,8 +95,8 @@
 			// Crop
 			$.create('button', {
 				type: 'button',
-				className: 'cropper-crop',
-				title: this.mavo._('cropper-hide'),
+				className: 'cropper-crop cropper-crop-hide',
+				title: this.mavo._('cropper-show'),
 				events: {
 					click: function() {
 						this.classList.toggle('cropper-crop-hide');

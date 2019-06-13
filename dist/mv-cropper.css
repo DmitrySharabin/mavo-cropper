@@ -30,7 +30,7 @@
       display: block;
       width: 1em;
       height: 1em; }
-    .cropper-bar > button:hover, .cropper-bar > button:focus {
+    .cropper-bar > button:hover {
       filter: hue-rotate(180deg); }
     .cropper-bar > button:focus {
       outline: none; }
@@ -43,6 +43,8 @@
       content: var(--upload-btn); }
   .cropper-bar .cropper-crop::before {
     content: var(--crop-btn); }
+  .cropper-bar .cropper-crop:not(.cropper-crop-hide) {
+    filter: hue-rotate(270deg); }
   .cropper-bar .cropper-rotate-left::before {
     content: var(--rotate-left-btn); }
   .cropper-bar .cropper-rotate-right::before {

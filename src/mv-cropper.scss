@@ -37,7 +37,7 @@
             height: 1em;
         }
 
-        &:hover, &:focus {
+        &:hover {
             filter: hue-rotate(180deg);
         }
 
@@ -63,6 +63,10 @@
 
         &::before {
             content: var(--crop-btn);
+        }
+
+        &:not(.cropper-crop-hide) {
+            filter: hue-rotate(270deg);
         }
     }
 
