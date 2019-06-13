@@ -2,8 +2,7 @@
 	const SELECTOR = '.cropper, [mv-cropper-options]';
 
 	let defaults = {
-		viewMode: 2,
-		autoCrop: false
+		viewMode: 2
 	};
 
 	let options;
@@ -34,6 +33,8 @@
 		},
 
 		editor: function () {
+			const self = this;
+
 			let fileName = this.data.split('/').pop();
 			let fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
@@ -88,6 +89,26 @@
 					}
 				},
 				inside: popup
+			});
+
+			// Crop
+			$.create('button', {
+				type: 'button',
+				className: 'cropper-crop',
+				title: this.mavo._('cropper-hide'),
+				events: {
+					click: function() {
+						this.classList.toggle('cropper-crop-hide');
+						if (this.classList.contains('cropper-crop-hide')) {
+							this.setAttribute('title', self.mavo._('cropper-show'));
+							self.cropper.clear();
+						} else {
+							this.setAttribute('title', self.mavo._('cropper-hide'));
+							self.cropper.crop();
+						}
+					}
+				},
+				inside: $('.cropper-bar', popup)
 			});
 
 			// Rotate
@@ -153,6 +174,8 @@
 	Mavo.Locale.register('en', {
 		'cropper-image-preview': 'Image preview',
 		'cropper-upload': 'Upload',
+		'cropper-show': 'Show Crop Box',
+		'cropper-hide': 'Hide Crop Box',
 		'cropper-rotate-left': 'Rotate Left',
 		'cropper-rotate-right': 'Rotate Right',
 		'cropper-flip-horizontal': 'Flip Horizontal',
