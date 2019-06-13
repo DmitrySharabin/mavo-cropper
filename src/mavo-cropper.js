@@ -3,7 +3,8 @@
 
 	let defaults = {
 		viewMode: 2,
-		autoCrop: false
+		autoCrop: false,
+		dragMode: 'none'
 	};
 
 	let options;
@@ -35,9 +36,13 @@
 
 		editor: function () {
 			const self = this;
+			let fileName;
+			let fileType;
 
-			let fileName = this.data.split('/').pop();
-			let fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+			if (typeof this.data !== 'undefined') {
+				fileName = this.data.split('/').pop();
+				fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+			}
 
 			// Listen to every change of the source image
 			// and update the preview accordingly
