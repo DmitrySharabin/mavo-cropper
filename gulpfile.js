@@ -49,6 +49,7 @@ function minifyJS() {
 function watchFiles(cb) {
     watch('src/**/*.scss', cssTask);
     watch('src/**/*.js', jsTask);
+    watch('dist/**/*.html').on('change', browserSync.reload);
     cb();
 }
 
