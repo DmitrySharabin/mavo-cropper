@@ -121,7 +121,6 @@
 					className: 'cropper-crop',
 					title: this.mavo._('cropper-hide'),
 				});
-				console.log(this.cropper.options);
 				this.cropper.setDragMode(this.cropper.options.dragMode);
 			} else {
 				$.set($('.cropper-crop', popup), {
