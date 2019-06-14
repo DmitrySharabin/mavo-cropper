@@ -127,7 +127,11 @@
 					className: 'cropper-crop cropper-crop-hidden',
 					title: this.mavo._('cropper-show'),
 				});
-				this.cropper.setDragMode('none');
+				// That's weird: this.cropper.setDragMode() doesn't work in that case.
+				// I have to use this workaround
+				$.extend(this.cropper.options, {
+					dragMode: 'none'
+				});
 			}
 
 			// Rotate
