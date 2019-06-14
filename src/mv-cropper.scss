@@ -1,4 +1,5 @@
 :root {
+    --main-color: hsl(210, 94%, 59%);
     --upload-btn: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="hsl(210, 94%, 59%)"><path d="M7.3 14.2L.2 9l1.7-2.4 4.8 3.5 6.6-8.5 2.3 1.8z"/></svg>');
     --rotate-left-btn: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="hsl(210, 94%, 59%)"><path d="M1.182 7.41l1.948.453a4.998 4.998 0 0 1 1.144-2.197l-1.49-1.334A7.009 7.009 0 0 0 1.182 7.41zM1 9.988a6.96 6.96 0 0 0 1.574 3.51l1.54-1.286A4.968 4.968 0 0 1 2.99 9.708L1 9.988zM9 2.08V0L6 3l3 3V4.101c2.28.465 4 2.485 4 4.899 0 2.757-2.243 5-5 5-.839 0-1.669-.211-2.398-.612l-.962 1.754A7.012 7.012 0 0 0 8 16c3.86 0 7-3.14 7-7 0-3.519-2.613-6.432-6-6.92z"/></svg>');
     --rotate-right-btn: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="hsl(210, 94%, 59%)"><path d="M14.818 7.41l-1.948.453a4.998 4.998 0 0 0-1.143-2.197l1.49-1.334a7.009 7.009 0 0 1 1.601 3.078zM15 9.988a6.96 6.96 0 0 1-1.574 3.51l-1.54-1.286a4.968 4.968 0 0 0 1.124-2.504l1.99.28zM7 2.08V0l3 3-3 3V4.101C4.72 4.566 3 6.586 3 9c0 2.757 2.243 5 5 5 .84 0 1.669-.211 2.398-.612l.962 1.754A7.012 7.012 0 0 1 8 16c-3.86 0-7-3.14-7-7 0-3.519 2.613-6.432 6-6.92z"/></svg>');
@@ -24,7 +25,7 @@
     margin-top: 0.5em;
     justify-content: center;
 
-    & > button {
+    & > * {
         border: none;
         padding: 0.2em;
         margin: 0.2em;
@@ -96,5 +97,15 @@
         &::before {
             content: var(--flip-vertical-btn);
         }
+    }
+
+    .cropper-aspect-ratio {
+        // Is it important to have tab order as in the source code?
+        // If yes, I need to change the order of creation of the buttons
+        order: 500;
+        min-width: max-content;
+        font-size: 130%;
+        color: var(--main-color);
+        background-color: transparent;
     }
 }

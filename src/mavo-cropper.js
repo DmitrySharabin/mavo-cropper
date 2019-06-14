@@ -105,10 +105,12 @@
 						this.classList.toggle('cropper-crop-hidden');
 						if (this.classList.contains('cropper-crop-hidden')) {
 							this.setAttribute('title', self.mavo._('cropper-show'));
+							$('.cropper-aspect-ratio', popup).style.visibility = 'hidden';
 							self.cropper.setDragMode();
 							self.cropper.clear();
 						} else {
 							this.setAttribute('title', self.mavo._('cropper-hide'));
+							$('.cropper-aspect-ratio', popup).style.visibility = 'visible';
 							self.cropper.setDragMode('crop');
 							self.cropper.crop();
 						}
@@ -116,23 +118,44 @@
 				},
 				inside: $('.cropper-bar', popup)
 			});
-			if (this.cropper.options.autoCrop) {
-				$.set($('.cropper-crop', popup), {
-					className: 'cropper-crop',
-					title: this.mavo._('cropper-hide'),
-				});
-				this.cropper.setDragMode(this.cropper.options.dragMode);
-			} else {
-				$.set($('.cropper-crop', popup), {
-					className: 'cropper-crop cropper-crop-hidden',
-					title: this.mavo._('cropper-show'),
-				});
-				// That's weird: this.cropper.setDragMode() doesn't work in that case.
-				// I have to use this workaround
-				$.extend(this.cropper.options, {
-					dragMode: 'none'
-				});
-			}
+
+			// Aspect Ratio
+			$.create('select', {
+				className: 'cropper-aspect-ratio',
+				title: this.mavo._('cropper-aspect-ratio'),
+				contents: [{
+						tag: 'option',
+						value: NaN,
+						textContent: 'Free'
+					},
+					{
+						tag: 'option',
+						value: 1,
+						textContent: '1:1'
+					},
+					{
+						tag: 'option',
+						value: 4 / 3,
+						textContent: '4:3'
+					},
+					{
+						tag: 'option',
+						value: 16 / 9,
+						textContent: '16:9'
+					},
+					{
+						tag: 'option',
+						value: 2 / 3,
+						textContent: '2:3'
+					}
+				],
+				events: {
+					change: (evt) => {
+						this.cropper.setAspectRatio(evt.target.value);
+					}
+				},
+				inside: $('.cropper-bar', popup)
+			});
 
 			// Rotate
 			if (this.cropper.options.rotatable) {
@@ -186,6 +209,33 @@
 				});
 			}
 
+			// Tune the cropper bar according to the cropper options
+			if (this.cropper.options.autoCrop) {
+				$.set($('.cropper-crop', popup), {
+					className: 'cropper-crop',
+					title: this.mavo._('cropper-hide'),
+				});
+				$.set($('.cropper-aspect-ratio', popup), {
+					// Need to set corresponding value (according to the aspectRatio parameter),
+					// but there are too many cases. Just ignore this parameter for now
+					style: {
+						visibility: 'visible'
+					}
+				});
+				this.cropper.setDragMode(this.cropper.options.dragMode);
+			} else {
+				$.set($('.cropper-crop', popup), {
+					className: 'cropper-crop cropper-crop-hidden',
+					title: this.mavo._('cropper-show'),
+				});
+				$('.cropper-aspect-ratio', popup).style.visibility = 'hidden';
+				// That's weird: this.cropper.setDragMode() doesn't work in that case.
+				// I have to use this workaround
+				$.extend(this.cropper.options, {
+					dragMode: 'none'
+				});
+			}
+
 			// TODO: Modify the behaviour of the default editor: we don't want to upload an image
 			// before it is edited
 
@@ -203,7 +253,8 @@
 		'cropper-rotate-left': 'Rotate Left',
 		'cropper-rotate-right': 'Rotate Right',
 		'cropper-flip-horizontal': 'Flip Horizontal',
-		'cropper-flip-vertical': 'Flip Vertical'
+		'cropper-flip-vertical': 'Flip Vertical',
+		'cropper-aspect-ratio': 'Crop Box Aspect Ratio'
 	});
 
 })(Bliss);
