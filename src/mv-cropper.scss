@@ -65,7 +65,7 @@
             content: var(--crop-btn);
         }
 
-        &:not(.cropper-crop-hide) {
+        &:not(.cropper-crop-hidden) {
             filter: hue-rotate(270deg);
         }
     }

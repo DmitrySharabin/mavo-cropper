@@ -43,7 +43,7 @@
       content: var(--upload-btn); }
   .cropper-bar .cropper-crop::before {
     content: var(--crop-btn); }
-  .cropper-bar .cropper-crop:not(.cropper-crop-hide) {
+  .cropper-bar .cropper-crop:not(.cropper-crop-hidden) {
     filter: hue-rotate(270deg); }
   .cropper-bar .cropper-rotate-left::before {
     content: var(--rotate-left-btn); }

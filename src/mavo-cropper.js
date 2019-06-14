@@ -3,8 +3,7 @@
 
 	let defaults = {
 		viewMode: 2,
-		autoCrop: false,
-		dragMode: 'none'
+		autoCrop: false
 	};
 
 	let options;
@@ -100,12 +99,11 @@
 			// Crop
 			$.create('button', {
 				type: 'button',
-				className: 'cropper-crop cropper-crop-hide',
-				title: this.mavo._('cropper-show'),
+				className: 'cropper-crop',
 				events: {
 					click: function() {
-						this.classList.toggle('cropper-crop-hide');
-						if (this.classList.contains('cropper-crop-hide')) {
+						this.classList.toggle('cropper-crop-hidden');
+						if (this.classList.contains('cropper-crop-hidden')) {
 							this.setAttribute('title', self.mavo._('cropper-show'));
 							self.cropper.setDragMode();
 							self.cropper.clear();
@@ -118,6 +116,20 @@
 				},
 				inside: $('.cropper-bar', popup)
 			});
+			if (this.cropper.options.autoCrop) {
+				$.set($('.cropper-crop', popup), {
+					className: 'cropper-crop',
+					title: this.mavo._('cropper-hide'),
+				});
+				console.log(this.cropper.options);
+				this.cropper.setDragMode(this.cropper.options.dragMode);
+			} else {
+				$.set($('.cropper-crop', popup), {
+					className: 'cropper-crop cropper-crop-hidden',
+					title: this.mavo._('cropper-show'),
+				});
+				this.cropper.setDragMode('none');
+			}
 
 			// Rotate
 			if (this.cropper.options.rotatable) {
