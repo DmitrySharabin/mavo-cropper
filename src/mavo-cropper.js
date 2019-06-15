@@ -45,7 +45,7 @@
 
 			// Listen to every change of the source image
 			// and update the preview accordingly
-			// That's a bit slow? Could we fix that?
+			// That's a bit slow. Could we fix that?
 			this.element.addEventListener('mv-change', evt => {
 				fileName = this.data.split('/').pop();
 				fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
