@@ -76,7 +76,7 @@
 				className: 'cropper-wrapper',
 				contents: [{
 					tag: 'img',
-					src: this.data,
+					src: this.data || '',
 					alt: this.mavo._('cropper-image-preview'),
 					className: 'cropper-preview',
 					style: {
