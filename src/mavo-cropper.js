@@ -38,25 +38,38 @@
 			let fileName;
 			let fileType;
 
+			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
+			// Generate the default editor
+			const popup = this.createUploadPopup('image/*', 'image', 'png');
+
 			if (typeof this.data !== 'undefined') {
 				fileName = this.data.split('/').pop();
 				fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+
+				popup.classList.remove('cropper-no-image');
+			} else {
+				// What if there is no image? No problem, just hide the preview and the toolbar
+				popup.classList.add('cropper-no-image');
 			}
 
 			// Listen to every change of the source image
 			// and update the preview accordingly
 			// That's a bit slow. Could we fix that?
 			this.element.addEventListener('mv-change', evt => {
-				fileName = this.data.split('/').pop();
-				fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
-				this.cropper.replace(evt.value);
+				if (typeof this.data !== 'undefined') {
+					fileName = this.data.split('/').pop();
+					fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+
+					this.cropper.replace(evt.value);
+
+					popup.classList.remove('cropper-no-image');
+				} else {
+					popup.classList.add('cropper-no-image');
+				}
 			});
 
-			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
-			// Generate the default editor
-			const popup = this.createUploadPopup('image/*', 'image', 'png');
-
-			// and extend it with appropriate elements
+			// Extend the default editor with appropriate elements:
+			// a preview and a toolbar
 			$.create('div', {
 				// Wrap the image element with a block element (container)
 				className: 'cropper-wrapper',

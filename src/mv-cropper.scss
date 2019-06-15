@@ -109,3 +109,10 @@
         background-color: transparent;
     }
 }
+
+.mv-upload-popup.cropper-no-image {
+    .cropper-wrapper,
+    .cropper-bar {
+        display: none;
+    }
+}

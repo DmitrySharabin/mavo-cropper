@@ -60,3 +60,7 @@
     font-size: 130%;
     color: var(--main-color);
     background-color: transparent; }
+
+.mv-upload-popup.cropper-no-image .cropper-wrapper,
+.mv-upload-popup.cropper-no-image .cropper-bar {
+  display: none; }
