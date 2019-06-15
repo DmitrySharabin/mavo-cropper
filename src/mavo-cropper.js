@@ -56,16 +56,9 @@
 			// and update the preview accordingly
 			// That's a bit slow. Could we fix that?
 			this.element.addEventListener('mv-change', evt => {
-				if (typeof this.data !== 'undefined') {
-					fileName = this.data.split('/').pop();
-					fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
-
-					this.cropper.replace(evt.value);
-
-					popup.classList.remove('cropper-no-image');
-				} else {
-					popup.classList.add('cropper-no-image');
-				}
+				fileName = this.data.split('/').pop();
+				fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+				this.cropper.replace(evt.value);
 			});
 
 			// Extend the default editor with appropriate elements:
