@@ -56,8 +56,8 @@
 			// and update the preview accordingly
 			// That's a bit slow. Could we fix that?
 			this.element.addEventListener('mv-change', evt => {
-				if (typeof this.data !== 'undefined') {
-					fileName = this.data.split('/').pop();
+				if (evt.value !== '') {
+					fileName = evt.value.split('/').pop();
 					fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
 					this.cropper.replace(evt.value);
