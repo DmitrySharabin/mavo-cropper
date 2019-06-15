@@ -150,7 +150,7 @@
 					}
 				],
 				events: {
-					change: (evt) => {
+					change: evt => {
 						this.cropper.setAspectRatio(evt.target.value);
 					}
 				},
