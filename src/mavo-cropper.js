@@ -60,6 +60,7 @@
 					fileName = evt.value.split('/').pop();
 					fileType = 'image/' + (fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
+					$('.cropper-preview', popup).style.maxWidth = this.element.offsetWidth + 'px';
 					this.cropper.replace(evt.value);
 
 					popup.classList.remove('cropper-no-image');
