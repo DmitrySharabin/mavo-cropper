@@ -39,7 +39,7 @@
       margin: 0.2em; }
   .cropper-bar .cropper-upload {
     order: 999;
-    margin-left: 3em; }
+    margin-left: 2em; }
     .cropper-bar .cropper-upload::before {
       content: var(--upload-btn); }
   .cropper-bar .cropper-crop::before {
