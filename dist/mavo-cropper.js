@@ -6,8 +6,6 @@
 		autoCrop: false
 	};
 
-	let options;
-
 	Mavo.Plugins.register('cropper', {
 		dependencies: [
 			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.css',
@@ -22,8 +20,12 @@
 		attribute: 'src',
 		hasChildren: false,
 
-		init: function () {
+		editor: function () {
+			const self = this;
+			let fileName;
+			let fileType;
 
+			let options;
 			options = this.element.getAttribute('mv-cropper-options');
 
 			if (options) {
@@ -31,12 +33,6 @@
 			} else {
 				options = defaults;
 			}
-		},
-
-		editor: function () {
-			const self = this;
-			let fileName;
-			let fileType;
 
 			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
 			// Generate the default editor
@@ -63,6 +59,7 @@
 					$('.cropper-preview', popup).style.maxWidth = this.element.offsetWidth + 'px';
 					this.cropper.replace(evt.value);
 
+					// TODO: We need to update the toolbar according to the cropper options
 					popup.classList.remove('cropper-no-image');
 				} else {
 					popup.classList.add('cropper-no-image');
