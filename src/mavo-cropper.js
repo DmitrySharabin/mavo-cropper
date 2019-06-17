@@ -8,10 +8,10 @@
 
 	Mavo.Plugins.register('cropper', {
 		dependencies: [
+			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.js',
 			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.css',
 			'mv-cropper.css'
-		],
-		ready: $.include(self.cropper, 'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.js'),
+		]
 	});
 
 	Mavo.Elements.register('cropper', {
