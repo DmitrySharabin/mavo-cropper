@@ -25,13 +25,12 @@
 			let fileName;
 			let fileType;
 
-			let options;
-			options = this.element.getAttribute('mv-cropper-options');
+			this.options = this.element.getAttribute('mv-cropper-options');
 
-			if (options) {
-				options = $.extend(defaults, Mavo.options(options));
+			if (this.options) {
+				this.options = $.extend(defaults, Mavo.options(this.options));
 			} else {
-				options = defaults;
+				this.options = defaults;
 			}
 
 			Mavo.setAttributeShy(this.element, 'mv-uploads', 'images');
@@ -84,7 +83,7 @@
 			});
 
 			// Create the cropper
-			this.cropper = new Cropper($('.cropper-preview', popup), options);
+			this.cropper = new Cropper($('.cropper-preview', popup), this.options);
 
 			// Generate the cropper-bar depending on the cropper options: this.cropper.options
 			$.create('div', {
