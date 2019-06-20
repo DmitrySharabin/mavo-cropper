@@ -1,7 +1,7 @@
 (function ($) {
 	const SELECTOR = '.cropper, [mv-cropper-options]';
 
-	let defaults = {
+	const defaults = {
 		viewMode: 2,
 		autoCrop: false
 	};
