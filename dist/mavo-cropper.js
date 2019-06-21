@@ -255,9 +255,7 @@
 						$('.cropper-aspect-ratio', env.popup).disabled = true;
 						// That's weird: this.cropper.setDragMode() doesn't work in that case.
 						// I have to use this workaround
-						$.extend(this.cropper.options, {
-							dragMode: 'none'
-						});
+						this.cropper.options.dragMode = 'none';
 					}
 				}
 			}
