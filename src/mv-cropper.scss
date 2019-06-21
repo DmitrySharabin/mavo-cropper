@@ -104,7 +104,8 @@
         // Is it important to have tab order as in the source code?
         // If yes, I need to change the order of creation of the buttons
         order: 500;
-        min-width: max-content;
+        min-width: auto;
+        max-width: max-content;
         font-size: 130%;
         color: var(--main-color);
         background-color: transparent;

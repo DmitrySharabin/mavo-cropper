@@ -57,7 +57,8 @@
     content: var(--flip-vertical-btn); }
   .cropper-bar .cropper-aspect-ratio {
     order: 500;
-    min-width: max-content;
+    min-width: auto;
+    max-width: max-content;
     font-size: 130%;
     color: var(--main-color);
     background-color: transparent; }
