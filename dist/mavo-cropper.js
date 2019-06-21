@@ -25,6 +25,7 @@
 					} else {
 						this.options = defaults;
 					}
+
 					if (typeof this.data !== 'undefined') {
 						this.fileName = this.data.split('/').pop();
 						this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
@@ -152,7 +153,11 @@
 						],
 						events: {
 							change: evt => {
-								this.cropper.setAspectRatio(evt.target.value);
+								if (evt.target.value === 'user') {
+									this.cropper.setAspectRatio(this.options.aspectRatio);
+								} else {
+									this.cropper.setAspectRatio(evt.target.value);
+								}
 							}
 						},
 						inside: $('.cropper-bar', env.popup)
@@ -217,13 +222,21 @@
 							title: this.mavo._('cropper-hide'),
 						});
 						$.set($('.cropper-aspect-ratio', env.popup), {
-							// Need to set corresponding value (according to the aspectRatio parameter),
-							// but there are too many cases. Just ignore this parameter for now.
-							// What if we simply add another option—User Defined?
 							style: {
 								visibility: 'visible'
 							}
 						});
+						// If a user defined a custom aspect ratio,
+						// add the corresponding option to the list of the predefined aspect ratios,
+						// and make it selected
+						if (this.cropper.options.aspectRatio) {
+							$.set(document.createElement('option'), {
+								value: 'user',
+								textContent: 'User Defined',
+								selected: true,
+								start: $('.cropper-aspect-ratio', env.popup)
+							});
+						}
 						this.cropper.setDragMode(this.cropper.options.dragMode);
 					} else {
 						$.set($('.cropper-crop', env.popup), {
