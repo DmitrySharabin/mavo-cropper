@@ -18,17 +18,17 @@
 				if (env.kind === 'image') {
 					const self = this;
 
-					this.options = this.element.getAttribute('mv-cropper-options');
+					env.options = this.element.getAttribute('mv-cropper-options');
 
-					if (this.options) {
-						this.options = $.extend(defaults, Mavo.options(this.options));
+					if (env.options) {
+						env.options = $.extend(defaults, Mavo.options(env.options));
 					} else {
-						this.options = defaults;
+						env.options = defaults;
 					}
 
 					if (typeof this.data !== 'undefined') {
-						this.fileName = this.data.split('/').pop();
-						this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+						env.fileName = this.data.split('/').pop();
+						env.fileType = 'image/' + (env.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
 						env.popup.classList.remove('cropper-no-image');
 					} else {
@@ -41,8 +41,8 @@
 					// That's a bit slow. Could we fix that?
 					this.element.addEventListener('mv-change', evt => {
 						if (evt.value !== '') {
-							this.fileName = evt.value.split('/').pop();
-							this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+							env.fileName = evt.value.split('/').pop();
+							env.fileType = 'image/' + (env.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
 							$('.cropper-preview', env.popup).style.maxWidth = this.element.offsetWidth + 'px';
 
@@ -84,7 +84,7 @@
 					});
 
 					// Create the cropper
-					this.cropper = new Cropper($('.cropper-preview', env.popup), this.options);
+					this.cropper = new Cropper($('.cropper-preview', env.popup), env.options);
 
 					// Generate the cropper-bar depending on the cropper options: this.cropper.options
 					$.create('div', {
@@ -97,12 +97,12 @@
 							events: {
 								click: () => {
 									this.cropper.getCroppedCanvas(
-										this.fileType === 'image/png' ? {} : {
+										env.fileType === 'image/png' ? {} : {
 											fillColor: '#fff'
 										}
 									).toBlob(file => {
-										this.upload(file, this.fileName);
-									}, this.fileType);
+										this.upload(file, env.fileName);
+									}, env.fileType);
 								}
 							}
 						},
@@ -165,7 +165,7 @@
 						events: {
 							change: evt => {
 								if (evt.target.value === 'user') {
-									this.cropper.setAspectRatio(this.options.aspectRatio);
+									this.cropper.setAspectRatio(env.options.aspectRatio);
 								} else {
 									this.cropper.setAspectRatio(evt.target.value);
 								}
