@@ -45,9 +45,21 @@
 							this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
 							$('.cropper-preview', env.popup).style.maxWidth = this.element.offsetWidth + 'px';
+
 							this.cropper.replace(evt.value);
 
-							// TODO: We need to update the toolbar according to the cropper options
+							// After updating the preview, we want the toolbar reflects the initial state
+							// of the cropper (should the crop button be active or not)
+							if (!$('button.cropper-crop', $('.cropper-bar', env.popup)).classList.contains('cropper-crop-hidden')) {
+								this.cropper.options.dragMode = 'none';
+								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
+							}
+
+							if (this.cropper.options.autoCrop) {
+								this.cropper.options.dragMode = 'crop';
+								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
+							}
+
 							env.popup.classList.remove('cropper-no-image');
 						} else {
 							env.popup.classList.add('cropper-no-image');
@@ -91,7 +103,6 @@
 									).toBlob(file => {
 										this.upload(file, this.fileName);
 									}, this.fileType);
-									// TODO: We need to update the toolbar according to the options the cropper had had before we uploaded the image
 								}
 							}
 						},
