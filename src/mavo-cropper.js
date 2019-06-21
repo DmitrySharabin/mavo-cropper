@@ -107,12 +107,12 @@
 								this.classList.toggle('cropper-crop-hidden');
 								if (this.classList.contains('cropper-crop-hidden')) {
 									this.setAttribute('title', self.mavo._('cropper-show'));
-									$('.cropper-aspect-ratio', env.popup).style.visibility = 'hidden';
+									$('.cropper-aspect-ratio', env.popup).disabled = true;
 									self.cropper.setDragMode();
 									self.cropper.clear();
 								} else {
 									this.setAttribute('title', self.mavo._('cropper-hide'));
-									$('.cropper-aspect-ratio', env.popup).style.visibility = 'visible';
+									$('.cropper-aspect-ratio', env.popup).disabled = false;
 									self.cropper.setDragMode('crop');
 									self.cropper.crop();
 								}
@@ -222,9 +222,7 @@
 							title: this.mavo._('cropper-hide'),
 						});
 						$.set($('.cropper-aspect-ratio', env.popup), {
-							style: {
-								visibility: 'visible'
-							}
+							disabled: false
 						});
 						// If a user defined a custom aspect ratio,
 						// add the corresponding option to the list of the predefined aspect ratios,
@@ -243,7 +241,7 @@
 							className: 'cropper-crop cropper-crop-hidden',
 							title: this.mavo._('cropper-show'),
 						});
-						$('.cropper-aspect-ratio', env.popup).style.visibility = 'hidden';
+						$('.cropper-aspect-ratio', env.popup).disabled = true;
 						// That's weird: this.cropper.setDragMode() doesn't work in that case.
 						// I have to use this workaround
 						$.extend(this.cropper.options, {
