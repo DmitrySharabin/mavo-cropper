@@ -246,6 +246,8 @@
 						} else {
 							$('.cropper-preview', env.popup).style.maxWidth = this.element.offsetWidth + 'px';
 
+							this.cropper.options.minContainerWidth = this.element.offsetWidth;
+
 							this.cropper.replace(this.element.src);
 
 							// After updating the preview, we want the toolbar reflects the initial state
