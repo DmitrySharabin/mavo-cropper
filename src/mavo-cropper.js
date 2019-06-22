@@ -129,7 +129,7 @@
 						],
 						events: {
 							change: evt => {
-								if (evt.target.value === 'user') {
+								if (evt.target.value === 'custom') {
 									this.cropper.setAspectRatio(this.options.aspectRatio);
 								} else {
 									this.cropper.setAspectRatio(evt.target.value);
@@ -205,8 +205,8 @@
 						// and make it selected
 						if (this.cropper.options.aspectRatio) {
 							$.set(document.createElement('option'), {
-								value: 'user',
-								textContent: 'User Defined',
+								value: 'custom',
+								textContent: 'Custom',
 								selected: true,
 								start: $('.cropper-aspect-ratio', env.popup)
 							});
