@@ -25,11 +25,9 @@
 						this.options = defaults;
 					}
 
-					console.log(this.options);
-
 					if (typeof this.data !== 'undefined') {
-						env.fileName = this.data.split('/').pop();
-						env.fileType = 'image/' + (env.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+						this.fileName = this.data.split('/').pop();
+						this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
 						env.popup.classList.remove('cropper-no-image');
 					} else {
@@ -42,8 +40,8 @@
 					// That's a bit slow. Could we fix that?
 					this.element.addEventListener('mv-change', evt => {
 						if (evt.value !== '') {
-							env.fileName = evt.value.split('/').pop();
-							env.fileType = 'image/' + (env.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+							this.fileName = evt.value.split('/').pop();
+							this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 
 							$('.cropper-preview', env.popup).style.maxWidth = this.element.offsetWidth + 'px';
 
@@ -98,12 +96,12 @@
 							events: {
 								click: () => {
 									this.cropper.getCroppedCanvas(
-										env.fileType === 'image/png' ? {} : {
+										this.fileType === 'image/png' ? {} : {
 											fillColor: '#fff'
 										}
 									).toBlob(file => {
-										this.upload(file, env.fileName);
-									}, env.fileType);
+										this.upload(file, this.fileName);
+									}, this.fileType);
 								}
 							}
 						},
