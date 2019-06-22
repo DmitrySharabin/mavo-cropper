@@ -6,8 +6,6 @@
 			'mv-cropper.css'
 		],
 		hooks: {
-			// TODO: Modify the behaviour of the default editor: we don't want to upload an image
-			// before it is edited
 			'primitive-createuploadpopup-beforereturn': function (env) {
 				if (env.kind === 'image') {
 					const defaults = {
