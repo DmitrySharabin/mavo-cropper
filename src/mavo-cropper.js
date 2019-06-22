@@ -25,45 +25,10 @@
 						this.options = defaults;
 					}
 
-					if (typeof this.data !== 'undefined') {
-						this.fileName = this.data.split('/').pop();
-						this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
-
-						env.popup.classList.remove('cropper-no-image');
-					} else {
-						// What if there is no image? No problem, just hide the preview and the toolbar
+					// What if there is no image? No problem, just hide the preview and the toolbar
+					if (typeof this.data === 'undefined') {
 						env.popup.classList.add('cropper-no-image');
 					}
-
-					// Listen to every change of the source image
-					// and update the preview accordingly
-					// That's a bit slow. Could we fix that?
-					this.element.addEventListener('mv-change', evt => {
-						if (evt.value !== '') {
-							this.fileName = evt.value.split('/').pop();
-							this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
-
-							$('.cropper-preview', env.popup).style.maxWidth = this.element.offsetWidth + 'px';
-
-							this.cropper.replace(evt.value);
-
-							// After updating the preview, we want the toolbar reflects the initial state
-							// of the cropper (should the crop button be active or not)
-							if (!$('button.cropper-crop', $('.cropper-bar', env.popup)).classList.contains('cropper-crop-hidden')) {
-								this.cropper.options.dragMode = 'none';
-								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
-							}
-
-							if (this.cropper.options.autoCrop) {
-								this.cropper.options.dragMode = 'crop';
-								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
-							}
-
-							env.popup.classList.remove('cropper-no-image');
-						} else {
-							env.popup.classList.add('cropper-no-image');
-						}
-					});
 
 					// Extend the default editor with appropriate elements:
 					// a preview and a toolbar
@@ -95,12 +60,15 @@
 							title: this.mavo._('cropper-upload'),
 							events: {
 								click: () => {
+									this.fileName = this.element.src.split('/').pop();
+									this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
 									this.cropper.getCroppedCanvas(
 										this.fileType === 'image/png' ? {} : {
 											fillColor: '#fff'
 										}
 									).toBlob(file => {
 										this.upload(file, this.fileName);
+										this.updatePreview();
 									}, this.fileType);
 								}
 							}
@@ -255,6 +223,43 @@
 						// That's weird: this.cropper.setDragMode() doesn't work in that case.
 						// I have to use this workaround
 						this.cropper.options.dragMode = 'none';
+					}
+
+					// We want to update the preview every time the source image changes
+					$.bind(env.popup, 'paste drop', () => {
+						this.updatePreview();
+					});
+
+					$.bind(this.element, 'paste drop', () => {
+						this.updatePreview();
+					});
+
+					$.bind($('input[type=file]', env.popup), 'change', () => {
+						this.updatePreview();
+					});
+
+					this.updatePreview = () => {
+						if (!this.element.src) {
+							env.popup.classList.add('cropper-no-image');
+						} else {
+							$('.cropper-preview', env.popup).style.maxWidth = this.element.offsetWidth + 'px';
+
+							this.cropper.replace(this.element.src);
+
+							// After updating the preview, we want the toolbar reflects the initial state
+							// of the cropper (should the crop button be active or not)
+							if (!$('button.cropper-crop', $('.cropper-bar', env.popup)).classList.contains('cropper-crop-hidden')) {
+								this.cropper.options.dragMode = 'none';
+								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
+							}
+
+							if (this.cropper.options.autoCrop) {
+								this.cropper.options.dragMode = 'crop';
+								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
+							}
+
+							env.popup.classList.remove('cropper-no-image');
+						}
 					}
 				}
 			}
