@@ -234,6 +234,10 @@
 						this.updatePreview();
 					});
 
+					$.bind($('input[type=url]', env.popup), 'keyup', () => {
+						this.updatePreview();
+					});
+
 					$.bind($('input[type=file]', env.popup), 'change', () => {
 						this.updatePreview();
 					});
