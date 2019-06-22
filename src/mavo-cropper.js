@@ -1,10 +1,4 @@
 (function ($) {
-
-	const defaults = {
-		viewMode: 2,
-		autoCrop: false
-	};
-
 	Mavo.Plugins.register('cropper', {
 		dependencies: [
 			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.js',
@@ -16,15 +10,22 @@
 			// before it is edited
 			'primitive-createuploadpopup-beforereturn': function (env) {
 				if (env.kind === 'image') {
+					const defaults = {
+						viewMode: 2,
+						autoCrop: false
+					};
+
 					const self = this;
 
-					env.options = this.element.getAttribute('mv-cropper-options');
+					this.options = this.element.getAttribute('mv-cropper-options');
 
-					if (env.options) {
-						env.options = $.extend(defaults, Mavo.options(env.options));
+					if (this.options) {
+						this.options = $.extend(defaults, Mavo.options(this.options));
 					} else {
-						env.options = defaults;
+						this.options = defaults;
 					}
+
+					console.log(this.options);
 
 					if (typeof this.data !== 'undefined') {
 						env.fileName = this.data.split('/').pop();
@@ -84,7 +85,7 @@
 					});
 
 					// Create the cropper
-					this.cropper = new Cropper($('.cropper-preview', env.popup), env.options);
+					this.cropper = new Cropper($('.cropper-preview', env.popup), this.options);
 
 					// Generate the cropper-bar depending on the cropper options: this.cropper.options
 					$.create('div', {
@@ -165,7 +166,7 @@
 						events: {
 							change: evt => {
 								if (evt.target.value === 'user') {
-									this.cropper.setAspectRatio(env.options.aspectRatio);
+									this.cropper.setAspectRatio(this.options.aspectRatio);
 								} else {
 									this.cropper.setAspectRatio(evt.target.value);
 								}
