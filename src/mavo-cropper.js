@@ -232,7 +232,7 @@
 						this.updatePreview();
 					});
 
-					$.bind($('input[type=url]', env.popup), 'keyup', () => {
+					$.bind($('input[type=url]', env.popup), 'input', () => {
 						this.updatePreview();
 					});
 
