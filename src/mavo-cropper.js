@@ -192,6 +192,23 @@
 						});
 					}
 
+					// Update (Rebuild)
+					// There is an issue described in the documentation:
+					// If you are using cropper in a modal, you should initialize the cropper after the modal is shown completely.
+					// Otherwise, you will not get the correct cropper.
+					// Here is the workaround I came to.
+					$.create('button', {
+						type: 'button',
+						className: 'cropper-update',
+						title: this.mavo._('cropper-update'),
+						events: {
+							click: () => {
+								this.updatePreview();
+							}
+						},
+						inside: $('.cropper-bar', env.popup)
+					});
+
 					// Tune the cropper bar according to the cropper options
 					if (this.cropper.options.autoCrop) {
 						$.set($('.cropper-crop', env.popup), {
@@ -280,7 +297,8 @@
 		'cropper-rotate-right': 'Rotate Right',
 		'cropper-flip-horizontal': 'Flip Horizontal',
 		'cropper-flip-vertical': 'Flip Vertical',
-		'cropper-aspect-ratio': 'Crop Box Aspect Ratio'
+		'cropper-aspect-ratio': 'Crop Box Aspect Ratio',
+		'cropper-update': 'Update Preview'
 	});
 
 })(Bliss);
