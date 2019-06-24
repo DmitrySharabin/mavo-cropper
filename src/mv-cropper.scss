@@ -47,6 +47,11 @@
         &:only-child {
             margin: 0.2em;
         }
+
+        // A hook for the future
+        &:focus:not(:focus-visible) {
+            outline: none;
+        }
     }
 
     .cropper-upload {
@@ -130,6 +135,11 @@
         &[disabled] {
             filter: opacity(0.5);
             cursor: default;
+        }
+
+        // A hook for the future
+        &:focus:not(:focus-visible) {
+            outline: none;
         }
     }
 }
