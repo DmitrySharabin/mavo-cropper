@@ -290,7 +290,7 @@
 	// Think of localization from the very beginning :)
 	Mavo.Locale.register('en', {
 		'cropper-image-preview': 'Image preview',
-		'cropper-upload': 'Upload',
+		'cropper-upload': 'Upload Image',
 		'cropper-show': 'Show Crop Box',
 		'cropper-hide': 'Hide Crop Box',
 		'cropper-rotate-left': 'Rotate Left',
