@@ -3,7 +3,7 @@
 		dependencies: [
 			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.js',
 			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.1/cropper.min.css',
-			'mv-cropper.css'
+			'mavo-cropper.css'
 		],
 		hooks: {
 			'primitive-createuploadpopup-beforereturn': function (env) {
