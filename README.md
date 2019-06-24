@@ -39,7 +39,7 @@ Your app needs to be in a different language? No problem! You can customize ever
 
 Here is the list of `id`s of phrases to change/localize and their default values:
 | id | Default Value |
-|---| --- |
+|---|---|
 | `cropper-image-preview` | Image preview |
 | `cropper-upload` | Upload Image |
 | `cropper-show` | Show Crop Box |
