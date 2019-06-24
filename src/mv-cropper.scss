@@ -39,12 +39,9 @@
             height: 1em;
         }
 
-        &:hover {
+        &:hover::before,
+        &:focus::before {
             filter: hue-rotate(180deg);
-        }
-
-        &:focus {
-            outline: none;
         }
 
         &:only-child {
@@ -75,7 +72,7 @@
             content: var(--crop-btn);
         }
 
-        &:not(.cropper-crop-hidden) {
+        &:not(.cropper-crop-hidden)::before {
             filter: hue-rotate(270deg);
         }
     }
