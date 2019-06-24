@@ -121,6 +121,12 @@
         background-size: 1.3em;
         padding-right: 1.3em;
 
+        // Fix me: we don't want to apply the filter to the outline
+        &:hover:not([disabled]),
+        &:focus {
+            filter: hue-rotate(180deg);
+        }
+
         &[disabled] {
             filter: opacity(0.5);
             cursor: default;
