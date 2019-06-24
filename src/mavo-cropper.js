@@ -269,14 +269,16 @@
 
 							// After updating the preview, we want the toolbar reflects the initial state
 							// of the cropper (should the crop button be active or not)
-							if (!$('button.cropper-crop', $('.cropper-bar', env.popup)).classList.contains('cropper-crop-hidden')) {
-								this.cropper.options.dragMode = 'none';
-								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
-							}
-
 							if (this.cropper.options.autoCrop) {
-								this.cropper.options.dragMode = 'crop';
-								$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
+								if ($('button.cropper-crop', $('.cropper-bar', env.popup)).classList.contains('cropper-crop-hidden')) {
+									this.cropper.options.dragMode = 'crop';
+									$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
+								}
+							} else {
+								if (!$('button.cropper-crop', $('.cropper-bar', env.popup)).classList.contains('cropper-crop-hidden')) {
+									this.cropper.options.dragMode = 'none';
+									$.fire($('button.cropper-crop', $('.cropper-bar', env.popup)), 'click');
+								}
 							}
 
 							env.popup.classList.remove('cropper-no-image');
