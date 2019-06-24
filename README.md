@@ -9,8 +9,9 @@ Cropper supports:
 - zooming (either by wheeling mouse or by touch).
 
 There is a couple of things you should know before starting working with Cropper:
-- use `Shift` key while either *resizing* existing or *adding* new cropping box to preserve its aspect ratio
-- use `double click` to switch between *moving* a crop box or *panning* an image (when it is zoomed in)
+- use `Shift` key while *resizing* existing cropping box to preserve its aspect ratio
+- use `Shift` key while *creating* new cropping box to get the square one
+- use `double click` to switch between *moving* a crop box and *panning* an image (when it is zoomed in)
 
 ## Customize Cropper
 
