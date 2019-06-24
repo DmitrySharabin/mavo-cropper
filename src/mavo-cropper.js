@@ -39,7 +39,8 @@
 							alt: this.mavo._('cropper-image-preview'),
 							className: 'cropper-preview',
 							style: {
-								maxWidth: this.element.offsetWidth + 'px'
+								maxWidth: this.element.offsetWidth + 'px',
+								maxHeight: this.element.offsetHeight + 'px'
 							}
 						}],
 						inside: env.popup
@@ -245,6 +246,7 @@
 							env.popup.classList.add('cropper-no-image');
 						} else {
 							$('.cropper-preview', env.popup).style.maxWidth = this.element.offsetWidth + 'px';
+							$('.cropper-preview', env.popup).style.maxHeight = this.element.offsetHeight + 'px';
 
 							this.cropper.replace(this.element.src);
 
