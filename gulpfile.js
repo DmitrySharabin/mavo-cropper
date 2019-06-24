@@ -8,7 +8,7 @@ const browserSync = require('browser-sync').create();
 function browserSyncTask() {
     browserSync.init({
         server: {
-            baseDir: 'dist',
+            baseDir: './',
             index: 'test.html'
         },
     });
@@ -17,7 +17,7 @@ function browserSyncTask() {
 function cssTask() {
     return src('src/**/*.scss')
         .pipe(sass().on('error', sass.logError))
-        .pipe(dest('dist'))
+        .pipe(dest('./'))
         .pipe(browserSync.stream());
 }
 
@@ -31,25 +31,25 @@ function buildCSS() {
                 },
             }]
         })))
-        .pipe(dest('dist'));
+        .pipe(dest('./'));
 }
 
 function jsTask() {
     return src('src/**/*.js')
-        .pipe(dest('dist'))
+        .pipe(dest('./'))
         .pipe(browserSync.stream());
 }
 
 function minifyJS() {
     return src('src/**/*.js')
         .pipe(terser())
-        .pipe(dest('dist'));
+        .pipe(dest('./'));
 }
 
 function watchFiles(cb) {
     watch('src/**/*.scss', cssTask);
     watch('src/**/*.js', jsTask);
-    watch('dist/**/*.html').on('change', browserSync.reload);
+    watch('./**/*.html').on('change', browserSync.reload);
     cb();
 }
 
