@@ -55,7 +55,6 @@
     }
 
     .cropper-upload {
-        order: 600;
         margin-left: 2em;
 
         &::before {
@@ -64,7 +63,6 @@
     }
 
     .cropper-update {
-        order: 700;
 
         &::before {
             content: var(--update-btn);
@@ -111,9 +109,6 @@
     }
 
     .cropper-aspect-ratio {
-        // Is it important to have tab order as in the source code?
-        // If yes, I need to change the order of creation of the buttons
-        order: 500;
         min-width: auto;
         font-size: 130%;
         color: var(--main-color);

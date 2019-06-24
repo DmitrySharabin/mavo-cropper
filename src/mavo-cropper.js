@@ -52,28 +52,60 @@
 					// Generate the cropper-bar depending on the cropper options: this.cropper.options
 					$.create('div', {
 						className: 'cropper-bar',
-						contents: {
-							tag: 'button',
-							type: 'button',
-							className: 'cropper-upload',
-							title: this.mavo._('cropper-upload'),
-							events: {
-								click: () => {
-									this.fileName = this.element.src.split('/').pop();
-									this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
-									this.cropper.getCroppedCanvas(
-										this.fileType === 'image/png' ? {} : {
-											fillColor: '#fff'
-										}
-									).toBlob(file => {
-										this.upload(file, this.fileName);
-										this.updatePreview();
-									}, this.fileType);
-								}
-							}
-						},
 						inside: env.popup
 					});
+
+					// Rotate
+					if (this.cropper.options.rotatable) {
+						$.create('button', {
+							type: 'button',
+							className: 'cropper-rotate-left',
+							title: this.mavo._('cropper-rotate-left'),
+							events: {
+								click: () => {
+									this.cropper.rotate(-90);
+								}
+							},
+							inside: $('.cropper-bar', env.popup)
+						});
+						$.create('button', {
+							type: 'button',
+							className: 'cropper-rotate-right',
+							title: this.mavo._('cropper-rotate-right'),
+							events: {
+								click: () => {
+									this.cropper.rotate(90);
+								}
+							},
+							inside: $('.cropper-bar', env.popup)
+						});
+					}
+
+					// Flip
+					if (this.cropper.options.scalable) {
+						$.create('button', {
+							type: 'button',
+							className: 'cropper-flip-horizontal',
+							title: this.mavo._('cropper-flip-horizontal'),
+							events: {
+								click: () => {
+									this.cropper.scaleX(-this.cropper.getData().scaleX || -1);
+								}
+							},
+							inside: $('.cropper-bar', env.popup)
+						});
+						$.create('button', {
+							type: 'button',
+							className: 'cropper-flip-vertical',
+							title: this.mavo._('cropper-flip-vertical'),
+							events: {
+								click: () => {
+									this.cropper.scaleY(-this.cropper.getData().scaleY || -1);
+								}
+							},
+							inside: $('.cropper-bar', env.popup)
+						});
+					}
 
 					// Crop
 					$.create('button', {
@@ -140,57 +172,27 @@
 						inside: $('.cropper-bar', env.popup)
 					});
 
-					// Rotate
-					if (this.cropper.options.rotatable) {
-						$.create('button', {
-							type: 'button',
-							className: 'cropper-rotate-left',
-							title: this.mavo._('cropper-rotate-left'),
-							events: {
-								click: () => {
-									this.cropper.rotate(-90);
-								}
-							},
-							inside: $('.cropper-bar', env.popup)
-						});
-						$.create('button', {
-							type: 'button',
-							className: 'cropper-rotate-right',
-							title: this.mavo._('cropper-rotate-right'),
-							events: {
-								click: () => {
-									this.cropper.rotate(90);
-								}
-							},
-							inside: $('.cropper-bar', env.popup)
-						});
-					}
-
-					// Flip
-					if (this.cropper.options.scalable) {
-						$.create('button', {
-							type: 'button',
-							className: 'cropper-flip-horizontal',
-							title: this.mavo._('cropper-flip-horizontal'),
-							events: {
-								click: () => {
-									this.cropper.scaleX(-this.cropper.getData().scaleX || -1);
-								}
-							},
-							inside: $('.cropper-bar', env.popup)
-						});
-						$.create('button', {
-							type: 'button',
-							className: 'cropper-flip-vertical',
-							title: this.mavo._('cropper-flip-vertical'),
-							events: {
-								click: () => {
-									this.cropper.scaleY(-this.cropper.getData().scaleY || -1);
-								}
-							},
-							inside: $('.cropper-bar', env.popup)
-						});
-					}
+					// Upload
+					$.create('button', {
+						type: 'button',
+						className: 'cropper-upload',
+						title: this.mavo._('cropper-upload'),
+						events: {
+							click: () => {
+								this.fileName = this.element.src.split('/').pop();
+								this.fileType = 'image/' + (this.fileName.split('.')[1] === 'png' ? 'png' : 'jpeg');
+								this.cropper.getCroppedCanvas(
+									this.fileType === 'image/png' ? {} : {
+										fillColor: '#fff'
+									}
+								).toBlob(file => {
+									this.upload(file, this.fileName);
+									this.updatePreview();
+								}, this.fileType);
+							}
+						},
+						inside: $('.cropper-bar', env.popup)
+					});
 
 					// Update (Rebuild)
 					// There is an issue described in the documentation:
