@@ -38,6 +38,7 @@ You may also find useful the `cropper-preview` class for styling the preview are
 Your app needs to be in a different language? No problem! You can customize every bit of Cropper displayed text, whether that is to change the text displayed to your liking or to localize it to a different language.
 
 Here is the list of `id`s of phrases to change/localize and their default values:
+
 | id | Default Value |
 |---|---|
 | `cropper-image-preview` | Image preview |
