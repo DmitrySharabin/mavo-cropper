@@ -1,6 +1,6 @@
 # Mavo Cropper
 
-![Cropper](screenshots/Preview.png)
+![Cropper](/screenshots/Preview.png)
 
 *****Credits*****: The image in the screenshot is taken from [here](https://fengyuanchen.github.io/cropperjs/).
 
@@ -26,7 +26,7 @@ The syntax of this attribute is a CSS-like list of declarations, where you can u
 
 ## UI customization: Toolbar
 
-![Toolbar](screenshots/Toolbar.png)
+![Toolbar](/screenshots/Toolbar.png)
 
 You can use these [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) in your CSS (via `var(--variable-name)`) to customize the toolbar.
 
