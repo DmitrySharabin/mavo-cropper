@@ -137,7 +137,7 @@
 						contents: [{
 								tag: 'option',
 								value: NaN,
-								textContent: 'Free'
+								textContent: this.mavo._('cropper-aspect-ratio-free')
 							},
 							{
 								tag: 'option',
@@ -226,7 +226,7 @@
 						if (this.cropper.options.aspectRatio) {
 							$.set(document.createElement('option'), {
 								value: 'custom',
-								textContent: 'Custom',
+								textContent: this.mavo._('cropper-aspect-ratio-custom'),
 								selected: true,
 								start: $('.cropper-aspect-ratio', env.popup)
 							});
@@ -302,6 +302,8 @@
 		'cropper-flip-horizontal': 'Flip Horizontal',
 		'cropper-flip-vertical': 'Flip Vertical',
 		'cropper-aspect-ratio': 'Crop Box Aspect Ratio',
+		'cropper-aspect-ratio-free': 'Free',
+		'cropper-aspect-ratio-custom': 'Custom',
 		'cropper-update': 'Update Preview'
 	});
 

@@ -59,4 +59,6 @@ Here is the list of `id`s of phrases to change/localize and their default values
 | `cropper-flip-horizontal` | Flip Horizontal |
 | `cropper-flip-vertical` | Flip Vertical |
 | `cropper-aspect-ratio` | Crop Box Aspect Ratio |
+| `cropper-aspect-ratio-free` | Free |
+| `cropper-aspect-ratio-custom` | Custom |
 | `cropper-update` | Update Preview |
