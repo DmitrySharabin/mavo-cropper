@@ -1,5 +1,9 @@
 # Mavo Cropper
 
+![Cropper](./screenshots/Preview.png)
+
+*****Credits*****: The image in the screenshot is taken from [here](https://fengyuanchen.github.io/cropperjs/).
+
 Simply add the plugin to your app to enable Cropper functionality on **every image property**.
 
 Cropper supports:
@@ -22,17 +26,19 @@ The syntax of this attribute is a CSS-like list of declarations, where you can u
 
 ## UI customization: Toolbar
 
+![Toolbar](./screenshots/Toolbar.png)
+
 You can use these [CSS variables](https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_variables) in your CSS (via `var(--variable-name)`) to customize the toolbar.
 
 | Name | Value |
 | ---- | ----- |
-| `--upload-btn` | data URI of Cropper upload icon |
-| `--update-btn` | data URI of Cropper update icon |
 | `--rotate-left-btn` | data URI of Cropper rotate left icon |
 | `--rotate-right-btn` | data URI of Cropper rotate right icon |
 | `--flip-horizontal-btn` | data URI of Cropper flip horizontal icon |
 | `--flip-vertical-btn` | data URI of Cropper flip vertical icon |
 | `--crop-btn` | data URI of Cropper crop icon |
+| `--upload-btn` | data URI of Cropper upload icon |
+| `--update-btn` | data URI of Cropper update icon |
 
 You may also find useful the `cropper-preview` class for styling the preview area.
 
