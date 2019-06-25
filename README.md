@@ -39,6 +39,7 @@ You can use these [CSS variables](https://developer.mozilla.org/en-US/docs/Web/C
 | `--crop-btn` | data URI of Cropper crop icon |
 | `--upload-btn` | data URI of Cropper upload icon |
 | `--update-btn` | data URI of Cropper update icon |
+| `--select-drop-down-arrow` | data URI of Cropper drop-down list arrow icon |
 
 You may also find useful the `cropper-preview` class for styling the preview area.
 
