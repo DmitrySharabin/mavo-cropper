@@ -24,6 +24,10 @@ There is a couple of things you should know before starting working with Cropper
 Cropper supports [a bunch of options for customizing the way it works](https://github.com/fengyuanchen/cropperjs#options). You can specify these options on a per-property basis by using the `mv-cropper-options` attribute.
 The syntax of this attribute is a CSS-like list of declarations, where you can use either commas or semicolons to separate the *option-value pairs*, like so: `mv-cropper-options="autoCrop: false, aspectRatio: 1.6"`. If you want to set an option to `true`, you can just provide no value.
 
+## UI customization: Preview
+
+You may also find useful the `cropper-preview` class for styling the preview area.
+
 ## UI customization: Toolbar
 
 ![Toolbar](https://raw.githubusercontent.com/DmitrySharabin/mavo-cropper/master/screenshots/Toolbar.png)
@@ -40,8 +44,6 @@ You can use these [CSS variables](https://developer.mozilla.org/en-US/docs/Web/C
 | `--upload-btn` | data URI of Cropper upload icon |
 | `--update-btn` | data URI of Cropper update icon |
 | `--select-drop-down-arrow` | data URI of Cropper drop-down list arrow icon |
-
-You may also find useful the `cropper-preview` class for styling the preview area.
 
 ## UI customization: Text & Localization
 
