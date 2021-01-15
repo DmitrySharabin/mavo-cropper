@@ -1,6 +1,6 @@
 {
   "name": "mavo-cropper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Mavo Plugin",
   "main": "index.js",
   "repository": "https://github.com/DmitrySharabin/mavo-cropper.git",
