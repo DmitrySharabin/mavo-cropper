@@ -1,8 +1,8 @@
 (function ($) {
 	Mavo.Plugins.register('cropper', {
 		dependencies: [
-			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js',
-			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css',
+			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js',
+			'https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css',
 			'https://cdn.jsdelivr.net/gh/DmitrySharabin/mavo-cropper/mavo-cropper.css'
 		],
 		hooks: {
